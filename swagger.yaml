@@ -1,0 +1,46 @@
+swagger: '2.0'
+info:
+  title: Food spring task API
+  version: "0.1"
+  description: API to get the highest 5 values of PM10 in your IP location.
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /getpm10values:
+    get:
+      tags: [pm10]
+      operationId: app.get_pmvalues
+      summary: Get highest 5 PM10 values
+      responses:
+        200:
+          description: Return highest 5 PM10 values
+          schema:
+            type: object
+            properties:
+              pm10:
+                type: array
+                items:
+                  $ref: '#/definitions/PM10'
+definitions:
+  PM10:
+    type: object
+    properties:
+      date:
+        type: object
+        properties:
+          utc:
+            type: string
+            format: 'date-time'
+            description: UTC date time
+            example: "2018-10-16T23:00:00.000Z"
+      value:
+        type: number
+        format: float
+        description: PM10 value
+        example: 10.87
+      unit:
+        type: string
+        description: Unit of PM10 value
+        example: "µg/m³"
