@@ -15,9 +15,9 @@ from helpers.get_ip_lat_long import get_top5_pm10_values
 from helpers.get_ip_lat_long import get_lat_long
 from connexion import NoContent
 
+
 # This function returns highest 5 Pm10 values based on the ipv6 value detected from the api
 def get_pmvalues():
-
     pm10_response = {}
     pm10_response_list = []
     pm10_response["pm10"] = []
@@ -31,15 +31,16 @@ def get_pmvalues():
         return NoContent, 204
 
     for pm10vals in pm10_top5:
-        pm10_response_list.append({"date":{"utc":pm10vals["date"]["utc"]},"unit":pm10vals["unit"],"value":pm10vals["value"]})
+        pm10_response_list.append(
+            {"date": {"utc": pm10vals["date"]["utc"]}, "unit": pm10vals["unit"], "value": pm10vals["value"]})
 
     pm10_response["pm10"] = pm10_response_list
 
     return pm10_response
 
-#This function gets highest pm10 values based on ipv6 value passed as a query parameter
-def get_pmvalues_ip(ipv6_address):
 
+# This function gets highest pm10 values based on ipv6 value passed as a query parameter
+def get_pmvalues_ip(ipv6_address):
     pm10_response = {}
     pm10_response_list = []
     pm10_response["pm10"] = []
@@ -52,7 +53,8 @@ def get_pmvalues_ip(ipv6_address):
         return NoContent, 204
 
     for pm10vals in pm10_top5:
-        pm10_response_list.append({"date":{"utc":pm10vals["date"]["utc"]},"unit":pm10vals["unit"],"value":pm10vals["value"]})
+        pm10_response_list.append(
+            {"date": {"utc": pm10vals["date"]["utc"]}, "unit": pm10vals["unit"], "value": pm10vals["value"]})
 
     pm10_response["pm10"] = pm10_response_list
 
@@ -66,4 +68,4 @@ application = app.app
 
 if __name__ == '__main__':
     # run our standalone gevent server
-    app.run(port=8080, server='gevent')
+    app.run(port=8080, server='tornado')

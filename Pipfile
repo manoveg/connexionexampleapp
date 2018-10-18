@@ -5,8 +5,8 @@ name = "pypi"
 
 [packages]
 connexion = "*"
-gevent = "*"
 requests = "*"
+tornado = "*"
 
 [dev-packages]
 
