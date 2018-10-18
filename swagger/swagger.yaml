@@ -23,6 +23,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/definitions/PM10'
+        204:
+          description: No data found for your current Ip address
+
 definitions:
   PM10:
     type: object
