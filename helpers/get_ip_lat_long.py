@@ -1,6 +1,7 @@
 import logging
 import requests
 
+
 # This function returns the ipv6 address
 def get_ipv6_address():
 
@@ -11,9 +12,13 @@ def get_ipv6_address():
 
         if ipv6address_response.status_code == requests.codes.ok :
             ipv6address_json = ipv6address_response.json()
-    except :
-        logging.info("Request to get Ipv6 address unsuccessful.")
-        raise
+
+    except requests.exceptions.Timeout:
+        logging.info("Request to get Ipv6 address unsuccessful due to timeout.")
+    except requests.exceptions.TooManyRedirects:
+        logging.info("Request to getIpv6 address unsuccessful because of too many redirects.")
+    except requests.exceptions.RequestException as e:
+        logging.info("Request to get Ipv6 address unsuccessful")
 
     return ipv6address_json["address"]
 
@@ -29,10 +34,14 @@ def get_lat_long(ipv6address):
         if lat_long_response.status_code == requests.codes.ok :
             lat_long_json = lat_long_response.json()
 
-    except:
-        logging.info("Request to get lattitude & longitude unsuccessful.")
-        raise
+    except requests.exceptions.Timeout:
+        logging.info("Request to get lattitude & longitude unsuccessful due to timeout.")
+    except requests.exceptions.TooManyRedirects:
+        logging.info("Request to get lattitude & longitude unsuccessful because of too many redirects.")
+    except requests.exceptions.RequestException as e:
+        logging.info("Request to getlattitude & longitude unsuccessful")
 
+    logging.info(lat_long_json)
     return lat_long_json
 
 # This function gets top5 PM10 values fetched for the lattitude and longitude passed as argument
@@ -55,9 +64,13 @@ def get_top5_pm10_values(lat_long):
         if pm10val_response.status_code == requests.codes.ok :
             pm10val_json = pm10val_response.json()
 
-    except:
-        logging.info("Request to get pm10 values unsuccessful.")
-        raise
+    except requests.exceptions.Timeout:
+        logging.info("Request to get pm10 values unsuccessful due to timeout.")
+    except requests.exceptions.TooManyRedirects:
+        logging.info("Request to get pm10 values unsuccessful because of too many redirects.")
+    except requests.exceptions.RequestException as e:
+        logging.info("Request to get pm10 values unsuccessful")
+
 
     if not pm10val_json:
         return []

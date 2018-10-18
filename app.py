@@ -15,7 +15,7 @@ from helpers.get_ip_lat_long import get_top5_pm10_values
 from helpers.get_ip_lat_long import get_lat_long
 from connexion import NoContent
 
-
+# This function returns highest 5 Pm10 values based on the ipv6 value detected from the api
 def get_pmvalues():
 
     pm10_response = {}
@@ -23,6 +23,27 @@ def get_pmvalues():
     pm10_response["pm10"] = []
 
     ipv6_address = get_ipv6_address()
+    lat_long = get_lat_long(ipv6_address)
+
+    pm10_top5 = get_top5_pm10_values(lat_long)
+
+    if not pm10_top5:
+        return NoContent, 204
+
+    for pm10vals in pm10_top5:
+        pm10_response_list.append({"date":{"utc":pm10vals["date"]["utc"]},"unit":pm10vals["unit"],"value":pm10vals["value"]})
+
+    pm10_response["pm10"] = pm10_response_list
+
+    return pm10_response
+
+#This function gets highest pm10 values based on ipv6 value passed as a query parameter
+def get_pmvalues_ip(ipv6_address):
+
+    pm10_response = {}
+    pm10_response_list = []
+    pm10_response["pm10"] = []
+
     lat_long = get_lat_long(ipv6_address)
 
     pm10_top5 = get_top5_pm10_values(lat_long)

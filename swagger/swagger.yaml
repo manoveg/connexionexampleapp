@@ -26,6 +26,34 @@ paths:
         204:
           description: No data found for your current Ip address
 
+  /getpm10values/{ipv6_address}:
+    get:
+      tags: [pm10]
+      operationId: app.get_pmvalues_ip
+      summary: Get highest 5 PM10 values based on ipv6 address provided
+      parameters:
+        - $ref: '#/parameters/ipv6_address'
+      responses:
+        200:
+          description: Return highest 5 PM10 values
+          schema:
+            type: object
+            properties:
+              pm10:
+                type: array
+                items:
+                  $ref: '#/definitions/PM10'
+        204:
+          description: No data found for your current Ip address
+
+parameters:
+  ipv6_address:
+    name: ipv6_address
+    description: ipv6 value for which PM10 values needed
+    in: path
+    type: string
+    required: true
+
 definitions:
   PM10:
     type: object
