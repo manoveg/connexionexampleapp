@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  title: Food spring task API
+  title: Zalando's connexion example API
   version: "0.1"
   description: API to get the highest 5 values of PM10 in your IP location.
 consumes:
